@@ -4,46 +4,30 @@ import CardList from './cardList';
 import styles from './weather.module.scss'
 
 const Weather = () => {
-    const [londonTemp, setLondonTemp] = useState({});
-    const [belfastTemp, setBelfastTemp] = useState({});
-    const [romeTemp, setRomeTemp] = useState({});
+    const [londonTemp, setLondonTemp] = useState(null);
+    const [belfastTemp, setBelfastTemp] = useState(null);
+    const [romeTemp, setRomeTemp] = useState(null);
 
-
-    const cityId = [2643744, 4749005, 4219762];
-
-    useEffect( async () => {
-        await handleLondonFetch();
-        await handleBelfastFetch();
-        await handleRomeFetch();
+    useEffect(() => {
+        handleFetch()
     }, []);
 
-    const handleLondonFetch = () => {
-        const url = `http://api.openweathermap.org/data/2.5/weather?id=2643744&appid=ebcbfa0f90191d692fb8c9de956614df&units=metric`;
-        fetch(url)
-        .then(response => response.json())
-        .then(data => setLondonTemp(data));
+
+    const handleFetch = () => {
+        fetch("http://api.openweathermap.org/data/2.5/group?id=2643744,4749005,4219762&appid=1acbd84f93b9bf41a917d5cf13ed69eb&units=metric")
+        .then((response) => response.json())
+        .then((response) => {
+            setLondonTemp(response.list[0]);
+            setBelfastTemp(response.list[1]);
+            setRomeTemp(response.list[2]);
+        })
     }
 
-    const handleBelfastFetch = () => {
-        const url = `http://api.openweathermap.org/data/2.5/weather?id=4749005&appid=ebcbfa0f90191d692fb8c9de956614df&units=metric`;
-        fetch(url)
-        .then(response => response.json())
-        .then(data => setBelfastTemp(data));
-    }
-
-    const handleRomeFetch = () => {
-        const url = `http://api.openweathermap.org/data/2.5/weather?id=4219762&appid=ebcbfa0f90191d692fb8c9de956614df&units=metric`;
-        fetch(url)
-        .then(response => response.json())
-        .then(data => setRomeTemp(data));
-    }
-
-    console.log(londonTemp)
 
     return (
         <div className={styles.weatherContainer}>
             <h1>Weather Today</h1>
-            <CardList londonTemp={londonTemp} belfastTemp={belfastTemp} romeTemp={romeTemp}/>
+            {londonTemp && belfastTemp && romeTemp ? <CardList londonTemp={londonTemp} belfastTemp={belfastTemp} romeTemp={romeTemp}/> : <p>Loading Cards</p> }  
         </div>
     )
 }
