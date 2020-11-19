@@ -1,0 +1,47 @@
+.quiz {
+    background-image: url("../../assets/svg/whale.svg");
+    background-repeat: no-repeat;
+    height: 90vh;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+
+    h1 {
+        padding: 3%;
+        text-align: right;
+        color: #28464B;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        padding: 2%;
+        justify-content: flex-end;
+        align-items: flex-end;
+
+        button {
+            font-family: 'Roboto', sans-serif;
+            width: 200px;
+            margin: 10px;
+            margin-right: 15%;
+            padding: 1%;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            background: #36A0CD;
+            color: #ffffff;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+
+            &:hover {
+                background: darken($color: #36A0CD, $amount: 5%)
+            }
+        }
+    }
+}
